@@ -33,4 +33,8 @@ func PrintHelloAndHint() {
 	fmt.Printf("-- Hint in todo go todo --\n")
 	fmt.Printf(" - you can adding note and update the note and check if complete or not...\n")
 	fmt.Printf(" - and delete and can check for the old notes that complate and delete...\n")
+	fmt.Printf(" - using words: \n")
+	fmt.Printf(" - (show): show todos, (complate): adding complate todos, (add): add new todo\n") 
+	fmt.Printf(" - (show complate): show complate todo, (delete): delete todos, (update): update todo\n") 
+	fmt.Printf(" - (q, quit, exit): for exists the program\n")
 }
