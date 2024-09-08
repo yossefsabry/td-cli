@@ -4,9 +4,8 @@
 // CODE MORE READABLE AND CLEAN USING THE HELPER FUNCTION TO MAKE THE CODE MORE READABLE AND
 // CLEAN AND TO MAKE THE MAIN OPERATION MORE
 
-/** WORK
-- try adding better structure for the todo to make the code more readable
-*/
+// ** WORK
+// - try adding better structure for the todo to make the code more readable
 
 package main
 
@@ -22,6 +21,7 @@ import (
 	"text/tabwriter"
 	"time"
 	"unicode"
+	"bufio"
 )
 
 type todo struct {
@@ -147,14 +147,16 @@ func showTodo(reader *csv.Reader) error {
 
 // @starting adding todo for user { param : filename }
 func addTodo(fileName string) error {
-	// open the file for read and write
-	var todoMessage string
-	fmt.Printf("Enter the todo: ")
-	_, err2 := fmt.Scanln(&todoMessage)
-	if err2 != nil {
-		return err2
+	fmt.Printf("Enter the todo: \n")
+	reader := bufio.NewReader(os.Stdin) // using the bufio reader to read the input
+	todoMessage, err := reader.ReadString('\n') // the end for a string is \n
+	if err != nil { 
+		fmt.Println(err)
+		return err
 	}
-	if todoMessage == "" {
+	todoMessage = todoMessage[:len(todoMessage)-1] // remove the last char from the message
+	fmt.Printf("todoMessage: %v\n", todoMessage)
+	if todoMessage == "" || todoMessage ==  "\n" {
 		return errors.New("message can't be empty")
 	}
 	FormatTime := time.Now().Format("2006-01-02 15:04:05")
@@ -176,19 +178,20 @@ func addTodo(fileName string) error {
 		Todo.CreateAt,
 		Todo.UpdateAt,
 	}
-	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		return err
+	file, err2 := os.OpenFile(fileName, 
+		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err2 != nil {
+		return err2
 	}
 	defer closeFile(file)
 
 	writer := csv.NewWriter(file)
 	defer writer.Flush() // Ensure all data is written
 	// Write the new record to the file
-	if err := writer.Write(record); err != nil {
-		return err
+	if err3 := writer.Write(record); err3 != nil {
+		return err3
 	}
-	fmt.Printf("-- Todo added successfully --\n")
+	fmt.Printf("\n-- Todo added successfully --\n")
 	return nil
 }
 

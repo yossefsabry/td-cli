@@ -43,33 +43,33 @@ func main() {
 			fmt.Println("-- Error reading input:", err)
 		}
 		switch userOption {
-		case "1", "add":
+		case "1", "adding", "add", "a":
 			err := addTodo(fileName)
 			if err != nil {
-				log.Fatalf("error happend in deleting the todo: %v", err)
+				log.Fatalf("error happend in adding the todo: %v", err)
 			}
-		case "2", "update":
+		case "2", "update", "u":
 			err := updateTodo(reader)
 			if err != nil {
-				log.Fatalf("error happend in deleting the todo: %v", err)
+				log.Fatalf("error happend in updating the todo: %v", err)
 			}
-		case "3", "delete":
+		case "3", "delete","d":
 			err := todoDelete(reader) // for deleting the todo
 			if err != nil {
 				log.Fatalf("error happend in deleting the todo: %v", err)
 			}
-		case "4", "complete":
+		case "4", "complete",  "c":
 			err := CompleteTodo(reader)
 			if err != nil {
 				log.Fatalf("error happend in complate the todo: %v", err)
 			}
-		case "5", "show":
+		case "5", "show", "s", "ls":
 			err := showTodo(reader)
 			if err != nil {
 				log.Fatalf("error happend in show the todo: %v", err)
 			}
 			// testReader(reader) // for testing porpoise
-		case "6", "show complete":
+		case "6", "show complete", "sc":
 			err := showCompleteTodo(reader)
 			if err != nil {
 				log.Fatalf("error happend in show the todo: %v", err)
